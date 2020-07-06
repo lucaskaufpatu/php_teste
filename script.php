@@ -1,6 +1,7 @@
-Iniciando mini projeto em php.
 
 <?php // abrindo o arquivo php, para finalizar basta incluir no final </
+
+session_start();
 
 $categorias = [];
 $categorias [] = 'infantil';
@@ -14,41 +15,53 @@ $idade = $_POST['idade'];
 
 if(empty($nome))
 {
-    echo 'o nome não pode ser vazio';
+    $_SESSION ['mensagem-de-erro'] = 'o nome não pode ser vazio';
+    header('location: index.php');
     return;
 }
-if(strlen($nome) < 3)
+else if(strlen($nome) < 3)
 {
-    echo 'o nome deve conter mais de 3 caracteres';
+    $_SESSION ['mensagem-de-erro'] = 'o nome não pode conter menos de 3 caracteres';
+    header('location: index.php');
     return;
 }
-if(strlen($nome) > 40)
+else if(strlen($nome) > 40)
 {
-    echo 'o nome é muito extenso';
+    $_SESSION ['mensagem-de-erro'] = 'o nome é muito extenso';
+    header('location: index.php');
     return;
 }
-if(!is_numeric($idade))
+else if(!is_numeric($idade))
 {
-    echo 'Informe um número para idade';
+    $_SESSION ['mensagem-de-erro'] = 'informe um numero para a idade';
+    header('location: index.php');
     return;
 }
-
-//Inserindo as váriaveis e condicionais para saber em qual Categoria o lucas se encaixa
 
 if($idade >= 6 && $idade <= 12)
 {
     for($i = 0; $i <= count($categorias); $i++)
     {
         if($categoria[$i] == 'infantil')
-            echo "O nadador".$nome. " compete na categoria infantil";
+        {
+            $_SESSION['mensagem-de-sucesso'] = "O nadador".$nome. " compete na categoria infantil" .$categorias[$i];
+            header("location: index.php");
+            return;
+
+        }
     }
 }
 else if ($idade >= 13 && $idade <=18)
  {
     for($i = 0; $i <= count($categorias); $i++)
     {
+
         if($categoria[$i] == 'adolescente')
-            echo "O nadador".$nome. " compete na categoria adolescente";
+        {
+            $_SESSION['mensagem-de-sucesso'] = "O nadador".$nome. " compete na categoria adolescente" .$categorias[$i   ];
+            header("location: index.php");
+            return;
+        }
     }
  }
 else
@@ -56,6 +69,10 @@ else
     for($i = 0; $i <= count($categorias); $i++)
     {
         if($categoria[$i] == 'adulto')
-            echo "O nadador".$nome. " compete na categoria adulto";
+        {
+            $_SESSION['mensagem-de-sucesso'] = "O nadador".$nome. " compete na categoria adulto" .$categorias[$i];
+            header("location: index.php");
+            return;
+        }
     }
 }
