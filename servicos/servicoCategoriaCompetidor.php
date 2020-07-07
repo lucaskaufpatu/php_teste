@@ -8,6 +8,7 @@ function defineCategoriaCompetidor(string $nome, string $idade) : ?string
     $categorias [] = 'adulto';
     if (validaNome($nome) && validaIdade($idade))
     {
+        removerMenssagemErro();
         if($idade >= 6 && $idade <= 12)
         {
             for($i = 0; $i <= count($categorias); $i++)
@@ -47,6 +48,7 @@ function defineCategoriaCompetidor(string $nome, string $idade) : ?string
     }
     else
     {
+        removerMenssagemSucesso();
         return obterMensagemErro();
     }
 }
